@@ -30,6 +30,7 @@ FAST_INTER = os.environ.get('FAST_INTER', INTER)
 DOWN_INTER = os.environ.get('DOWN_INTER', INTER)
 RISE = os.environ.get('RISE', '2')
 FALL = os.environ.get('FALL', '3')
+CAPTURE_HEADERS = os.environ.get('CAPTURE_HEADERS','').split(';')
 
 
 listen_conf = Template("""
@@ -47,6 +48,11 @@ frontend_conf = Template("""
     mode http
     default_backend $backend
 """)
+
+capture_headers = ""
+if CAPTURE_HEADERS != ['']:
+    for header in CAPTURE_HEADERS:
+      capture_headers = capture_headers + "    capture request header " + header + "\r\n"
 
 if COOKIES_ENABLED:
     #if we choose to enable session stickiness
@@ -236,6 +242,8 @@ with open("/etc/haproxy/haproxy.cfg", "w") as configuration:
             accept_proxy=accept_proxy
         )
     )
+
+    configuration.write(capture_headers)
 
     configuration.write(backend_conf)
     configuration.write(health_conf)

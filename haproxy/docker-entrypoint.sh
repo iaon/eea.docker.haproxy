@@ -60,6 +60,8 @@ if [ ! -z "$STATS_PORT" ]; then echo "export STATS_PORT=\"$STATS_PORT\""  >> /et
 if [ ! -z "$TIMEOUT_CLIENT" ]; then echo "export TIMEOUT_CLIENT=\"$TIMEOUT_CLIENT\""  >> /etc/environment; fi
 if [ ! -z "$TIMEOUT_CONNECT" ]; then echo "export TIMEOUT_CONNECT=\"$TIMEOUT_CONNECT\""  >> /etc/environment; fi
 if [ ! -z "$TIMEOUT_SERVER" ]; then echo "export TIMEOUT_SERVER=\"$TIMEOUT_SERVER\""  >> /etc/environment; fi
+if [ ! -z "$CAPTURE_HEADERS" ]; then echo "export CAPTURE_HEADERS=\"$CAPTURE_HEADERS\""  >> /etc/environment; fi
+
 
 
 exec /haproxy-entrypoint.sh "$@"
